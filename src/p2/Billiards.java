@@ -19,8 +19,7 @@ public class Billiards extends JFrame {
 
 	private Board board;
 
-	// TODO update with number of group label. See practice statement.
-	private final int N_BALL = 2;
+	private final int N_BALL = 4;//Grupo 1 Miercoles+3 del enunciado
 	private Ball[] balls;
 
 	public Billiards() {
@@ -54,7 +53,7 @@ public class Billiards extends JFrame {
 	}
 
 	private void initBalls() {
-		// TODO init balls
+		//TODO
 	}
 
 	private class StartListener implements ActionListener {
@@ -69,7 +68,6 @@ public class Billiards extends JFrame {
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
 			// TODO Code is executed when stop button is pushed
-
 		}
 	}
 

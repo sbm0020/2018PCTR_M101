@@ -13,10 +13,9 @@ public class Ball {
 	public Ball() {
 		ImageIcon ii = new ImageIcon(this.getClass().getResource(Ball));
 		image = ii.getImage();
-		
-		//TODO Depend of image size
-		IMG_TAM_X = 32;
-		IMG_TAM_Y = 32;
+
+		IMG_TAM_X = 21;
+		IMG_TAM_Y = 21;
 
 		
 		x = Billiards.Width/4-16;
@@ -37,7 +36,6 @@ public class Ball {
 		y += dy;
 		
 		reflect();		
-		//TODO Check postcondition
 		 assert x > Board.LEFTBOARD;
 		 assert x < Board.RIGHTBOARD;
 		 assert y > Board.TOPBOARD;

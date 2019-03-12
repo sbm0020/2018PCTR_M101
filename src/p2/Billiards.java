@@ -13,6 +13,10 @@ import java.util.concurrent.Executors;
 
 public class Billiards extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -489315240540216418L;
 	public static int Width = 800;
 	public static int Height = 600;
 
@@ -20,7 +24,7 @@ public class Billiards extends JFrame {
 
 	private Board board;
 	private ExecutorService ejecutor;
-	private final int N_BALL = 5;//Grupo 2 Miercoles+3 del enunciado
+	private final int N_BALL = 5;
 	private Ball[] balls;
 
 	public Billiards() {
@@ -64,11 +68,9 @@ public class Billiards extends JFrame {
 	private class StartListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
-			ejecutor = Executors.newFixedThreadPool(N_BALL);
-			Hilo hilos[] = null;
+			ejecutor = Executors.newCachedThreadPool();
 			for (int i=0;i<N_BALL;i++) {
-				hilos[i]=new Hilo(balls[i]);
-				ejecutor.submit(hilos[i]);
+				ejecutor.submit(new Hilo(balls[i]));
 			}
 			// TODO Code is executed when start button is pushed
 			
@@ -87,7 +89,7 @@ public class Billiards extends JFrame {
 					b.move();
 					board.repaint();
 					try {
-						Thread.sleep(500);
+						Thread.sleep(100);
 					} catch (InterruptedException e) {
 						ejecutor.shutdownNow();
 						break;

@@ -3,7 +3,6 @@ import java.awt.Image;
 import javax.swing.ImageIcon;
 //TODO Transform the code to be used safely in a concurrent context.  
 public class Ball {
-       //TODO  Find an archive named Ball.png 
 	private String Ball = "Ball.png"; 
 
 	private double x,y,dx,dy;
@@ -37,9 +36,13 @@ public class Ball {
 		x += dx;   
 		y += dy;
 		
-		reflect();
-		
+		reflect();		
 		//TODO Check postcondition
+		 assert x > Board.LEFTBOARD;
+		 assert x < Board.RIGHTBOARD;
+		 assert y > Board.TOPBOARD;
+		 assert y <Board.BOTTOMBOARD;
+		
 	}
 
 	private void reflect() {

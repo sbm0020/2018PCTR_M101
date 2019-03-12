@@ -8,8 +8,9 @@ import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
-@SuppressWarnings("serial")
 public class Billiards extends JFrame {
 
 	public static int Width = 800;
@@ -18,7 +19,7 @@ public class Billiards extends JFrame {
 	private JButton b_start, b_stop;
 
 	private Board board;
-
+	private ExecutorService ejecutor;
 	private final int N_BALL = 5;//Grupo 2 Miercoles+3 del enunciado
 	private Ball[] balls;
 
@@ -63,15 +64,46 @@ public class Billiards extends JFrame {
 	private class StartListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
+			ejecutor = Executors.newFixedThreadPool(N_BALL);
+			Hilo hilos[] = null;
+			for (int i=0;i<N_BALL;i++) {
+				hilos[i]=new Hilo(balls[i]);
+				ejecutor.submit(hilos[i]);
+			}
 			// TODO Code is executed when start button is pushed
+			
 
+		}
+		private class Hilo implements Runnable{
+			Ball b;
+			
+			public Hilo(Ball bola) {
+				b = bola;
+			}
+			
+			@Override
+			public void run() {
+				while (true){
+					b.move();
+					board.repaint();
+					try {
+						Thread.sleep(500);
+					} catch (InterruptedException e) {
+						ejecutor.shutdownNow();
+						break;
+					}
+					
+				}
+				
+			}
+			
 		}
 	}
 
 	private class StopListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
-			// TODO Code is executed when stop button is pushed
+			ejecutor.shutdownNow();
 		}
 	}
 
